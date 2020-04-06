@@ -55,7 +55,7 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
-        self.storage[index] = value
+        self.storage[index] = LinkedPair(key, value)
 
 
 
@@ -80,7 +80,7 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
-        return self.storage[index]
+        return self.storage[index].value
 
 
 
