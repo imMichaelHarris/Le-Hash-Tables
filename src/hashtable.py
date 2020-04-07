@@ -96,13 +96,17 @@ class HashTable:
         Fill this in.
         '''
         self.capacity *= 2
+        old = self.storage
         new_storage = [None] * self.capacity
+        self.storage = new_storage
         # For every bucket in storage re hash the key
-        for bucket in self.storage:
+        for bucket in old:
             # If there is a Linked Pair here then 
-            if bucket is not None:
-                new_bucket = self._hash_mod(bucket.key)
-                new_storage[new_bucket] = bucket
+            current_bucket = bucket
+            while current_bucket is not None:
+                new_bucket = self._hash_mod(current_bucket.key)
+                self.insert(current_bucket.key, current_bucket.value)
+                current_bucket = current_bucket.next
 
         
 
