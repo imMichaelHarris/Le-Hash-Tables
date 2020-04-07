@@ -53,7 +53,9 @@ class HashTable:
         if pair is not None:
             pair.value = value
         else:
-            self.storage[index] = LinkedPair(key, value)
+            new_pair = LinkedPair(key, value)
+            new_pair.next = self.storage[index]
+            self.storage[index] = new_pair
     def remove(self, key):
         '''
         Remove the value stored with the given key.
