@@ -52,10 +52,16 @@ class HashTable:
             if pair.key != key:
                 print("Warning: Overwriting value")
                 # need to resize here I think
-                if pair.next is None:
-                    pair.next = LinkedPair(key.value)
-                pair.key = key
-            pair.value = value
+                node = pair
+                while node.next is not None:
+                    node = node.next
+
+                node.next = LinkedPair(key, value)
+                # Loop through Linked List until next is none and set Pair
+            else:
+                pair.value = value
+            #     pair.key = key
+            # pair.value = value
         else:
             # If not, Create a new LinkedPair and place it in the bucket
             self.storage[index] = LinkedPair(key, value)
@@ -82,12 +88,14 @@ class HashTable:
         # Get the index from hashmod
         index = self._hash_mod(key)
         # Check if a pair exists in the bucket with matching keys
-        if self.storage[index] is not None and self.storage[index].key == key:
+        item = self.storage[index]
+        while item is not None:
+            if item.key == key:
             # If so, return the value
-            return self.storage[index].value
-        else:
+                return item.value
+            item = item.next
             # Else return None
-            return None
+        return None
             
     def resize(self):
         '''
