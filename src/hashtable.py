@@ -91,7 +91,8 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        self.capacity *= 2
+        
 
 my_hash_table = HashTable(5)
 my_hash_table.insert("first", 1)
