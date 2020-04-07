@@ -47,23 +47,12 @@ class HashTable:
         index = self._hash_mod(key)
         # Check if a pair already exists in the bucket
         pair = self.storage[index]
-        if pair is not None:
-            # If so, overwrite the key/value and throw a warning
-            if pair.key != key:
-                print("Warning: Overwriting value")
-                # need to resize here I think
-                node = pair
-                while node.next is not None:
-                    node = node.next
+        while pair is not None and pair.key != key:
+            pair = pair.next
 
-                node.next = LinkedPair(key, value)
-                # Loop through Linked List until next is none and set Pair
-            else:
-                pair.value = value
-            #     pair.key = key
-            # pair.value = value
+        if pair is not None:
+            pair.value = value
         else:
-            # If not, Create a new LinkedPair and place it in the bucket
             self.storage[index] = LinkedPair(key, value)
     def remove(self, key):
         '''
